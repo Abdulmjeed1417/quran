@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متابعة الحفظ - منصة القرآن الكريم</title>
+  <!-- Bootstrap RTL -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c5530;
+      --secondary-color: #4a7c59;
+      --accent-color: #7fb069;
+      --light-green: #b8d4a0;
+      --gold: #d4af37;
+      --text-dark: #2c3e50;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+      --medal-gold: #ffd700;
+      --medal-silver: #c0c0c0;
+      --medal-bronze: #cd7f32;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+      min-height: 100vh;
+      color: var(--text-dark);
+    }
+
+    /* تصميم النافبار */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color) !important;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      color: var(--text-dark) !important;
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link:hover {
+      background: var(--light-green);
+      color: var(--primary-color) !important;
+    }
+
+    .nav-link.active {
+      background: var(--primary-color);
+      color: white !important;
+    }
+
+    /* تصميم الهيدر */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      margin: 2rem auto;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 1200px;
+    }
+
+    .header h1 {
+      font-family: 'Amiri', serif;
+      color: var(--primary-color);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .header h1 i {
+      color: var(--gold);
+    }
+
+    .header p {
+      color: var(--secondary-color);
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    /* تصميم الآية اليومية */
+    .daily-verse {
+      background: linear-gradient(135deg, var(--gold), #f4d03f);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+      color: white;
+    }
+
+    .daily-verse h2 {
+      font-family: 'Amiri', serif;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .verse-text {
+      font-family: 'Amiri', serif;
+      font-size: 2.5rem;
+      line-height: 1.8;
+      margin: 2rem 0;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .verse-info {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      opacity: 0.9;
+    }
+
+    .memorization-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-btn.success {
+      background: var(--success-color);
+      border-color: var(--success-color);
+    }
+
+    .action-btn.playing {
+      background: var(--danger-color);
+      border-color: var(--danger-color);
+    }
+
+    /* تصميم الإحصائيات */
+    .stats-section {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--light-green), var(--accent-color));
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      color: white;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* تصميم نظام المكافآت */
+    .rewards-section {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .rewards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .reward-card {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 3px solid transparent;
+    }
+
+    .reward-card.earned {
+      background: linear-gradient(135deg, var(--medal-gold), #ffd700);
+      color: white;
+      border-color: var(--medal-gold);
+      animation: glow 2s infinite alternate;
+    }
+
+    .reward-card.cup {
+      background: linear-gradient(135deg, var(--medal-silver), #e6e6e6);
+      color: var(--text-dark);
+    }
+
+    .reward-card.cup.earned {
+      background: linear-gradient(135deg, var(--medal-gold), #ffd700);
+      color: white;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3); }
+      to { box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6); }
+    }
+
+    .reward-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .reward-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .reward-description {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 1rem;
+    }
+
+    .reward-progress {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      height: 10px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .reward-progress-bar {
+      background: var(--success-color);
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .reward-progress-text {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      opacity: 0.8;
+    }
+
+    /* تصميم التقويم */
+    .calendar-section {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+      border: 2px solid transparent;
+    }
+
+    .calendar-day.memorized {
+      background: var(--success-color);
+      color: white;
+    }
+
+    .calendar-day.today {
+      border-color: var(--primary-color);
+      background: var(--light-green);
+    }
+
+    .calendar-day:hover {
+      transform: scale(1.1);
+    }
+
+    /* تصميم الإشعارات */
+    .notification {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: white;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      border-left: 4px solid var(--primary-color);
+      max-width: 300px;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      border-left-color: var(--success-color);
+    }
+
+    .notification.warning {
+      border-left-color: var(--warning-color);
+    }
+
+    .notification.error {
+      border-left-color: var(--danger-color);
+    }
+
+    .notification.info {
+      border-left-color: #17a2b8;
+    }
+
+    /* الاستجابة للأجهزة المحمولة */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .verse-text {
+        font-size: 1.8rem;
+        padding: 1.5rem;
+      }
+      
+      .memorization-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .action-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      
+      .stats-grid,
+      .rewards-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .calendar-grid {
+        gap: 0.3rem;
+      }
+      
+      .notification {
+        right: 10px;
+        max-width: calc(100vw - 20px);
+      }
+    }
+
+    /* تأثيرات الحركة */
+    .fade-in {
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bounce {
+      animation: bounce 0.6s ease;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    /* تصميم مؤشر التحميل */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- النافبار -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <div class="logo">
+          <i class="fas fa-quran-open"></i>
+        </div>
+        منصة القرآن الكريم
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="fas fa-home"></i>
+              الرئيسية
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="quran.html">
+              <i class="fas fa-book-open"></i>
+              قراءة القرآن
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="prayer-times.html">
+              <i class="fas fa-clock"></i>
+              أوقات الصلاة
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="memorization.html">
+              <i class="fas fa-brain"></i>
+              متابعة الحفظ
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="azkar.html">
+              <i class="fas fa-pray"></i>
+              الأذكار اليومية
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tafseer.html">
+              <i class="fas fa-book"></i>
+              التفسير
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="hadith.html">
+              <i class="fas fa-scroll"></i>
+              الأحاديث
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-info-circle"></i>
+              المزيد
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html"><i class="fas fa-users"></i> من نحن</a></li>
+              <li><a class="dropdown-item" href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a></li>
+              <li><a class="dropdown-item" href="technologies.html"><i class="fas fa-code"></i> اللغات المستخدمة</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-fluid" style="margin-top: 100px;">
+    <!-- الهيدر -->
+    <div class="header fade-in">
+      <h1>
+        <i class="fas fa-brain"></i>
+        متابعة الحفظ
+      </h1>
+      <p>تابع تقدمك في حفظ القرآن الكريم مع الآية اليومية والإحصائيات التفصيلية</p>
+    </div>
+
+    <!-- الآية اليومية -->
+    <div class="daily-verse fade-in">
+      <h2>
+        <i class="fas fa-star"></i>
+        آية اليوم للحفظ
+        <i class="fas fa-star"></i>
+      </h2>
+      
+      <div class="verse-text" id="dailyVerseText">
+        صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ
+      </div>
+      
+      <div class="verse-info" id="dailyVerseInfo">سورة الفاتحة - الآية 7</div>
+      
+      <div class="memorization-actions">
+        <button class="action-btn" onclick="playVerseAudio()" id="audioBtn">
+          <i class="fas fa-play"></i>
+          استمع للآية
+        </button>
+        <button class="action-btn" onclick="showVerseTranslation()">
+          <i class="fas fa-language"></i>
+          المعنى
+        </button>
+        <button class="action-btn" onclick="markAsMemorized()" id="memorizeBtn">
+          <i class="fas fa-check"></i>
+          حفظت الآية
+        </button>
+        <button class="action-btn" onclick="repeatVerse()">
+          <i class="fas fa-redo"></i>
+          كرر الآية
+        </button>
+      </div>
+    </div>
+
+    <!-- نظام المكافآت -->
+    <div class="rewards-section fade-in">
+      <h2 class="text-center mb-4">
+        <i class="fas fa-trophy" style="color: var(--gold);"></i>
+        نظام المكافآت والإنجازات
+      </h2>
+      
+      <div class="rewards-grid">
+        <!-- مدالية 5 صفحات -->
+        <div class="reward-card" id="medal5Pages">
+          <i class="fas fa-medal reward-icon" style="color: var(--medal-bronze);"></i>
+          <div class="reward-title">مدالية البداية</div>
+          <div class="reward-description">احفظ 5 صفحات من القرآن الكريم</div>
+          <div class="reward-progress">
+            <div class="reward-progress-bar" id="progress5Pages" style="width: 0%;"></div>
+          </div>
+          <div class="reward-progress-text" id="text5Pages">0 / 5 صفحات</div>
+        </div>
+
+        <!-- مدالية 10 صفحات -->
+        <div class="reward-card" id="medal10Pages">
+          <i class="fas fa-medal reward-icon" style="color: var(--medal-silver);"></i>
+          <div class="reward-title">مدالية التقدم</div>
+          <div class="reward-description">احفظ 10 صفحات من القرآن الكريم</div>
+          <div class="reward-progress">
+            <div class="reward-progress-bar" id="progress10Pages" style="width: 0%;"></div>
+          </div>
+          <div class="reward-progress-text" id="text10Pages">0 / 10 صفحات</div>
+        </div>
+
+        <!-- مدالية 15 صفحات -->
+        <div class="reward-card" id="medal15Pages">
+          <i class="fas fa-medal reward-icon" style="color: var(--medal-gold);"></i>
+          <div class="reward-title">مدالية الإتقان</div>
+          <div class="reward-description">احفظ 15 صفحة من القرآن الكريم</div>
+          <div class="reward-progress">
+            <div class="reward-progress-bar" id="progress15Pages" style="width: 0%;"></div>
+          </div>
+          <div class="reward-progress-text" id="text15Pages">0 / 15 صفحة</div>
+        </div>
+
+        <!-- كأس جزء عم -->
+        <div class="reward-card cup" id="cupJuzAmma">
+          <i class="fas fa-trophy reward-icon" style="color: var(--medal-gold);"></i>
+          <div class="reward-title">كأس جزء عم</div>
+          <div class="reward-description">احفظ جزء عم كاملاً (37 سورة)</div>
+          <div class="reward-progress">
+            <div class="reward-progress-bar" id="progressJuzAmma" style="width: 0%;"></div>
+          </div>
+          <div class="reward-progress-text" id="textJuzAmma">0 / 37 سورة</div>
+        </div>
+
+        <!-- كأس جزء تبارك -->
+        <div class="reward-card cup" id="cupJuzTabarak">
+          <i class="fas fa-trophy reward-icon" style="color: var(--medal-gold);"></i>
+          <div class="reward-title">كأس جزء تبارك</div>
+          <div class="reward-description">احفظ جزء تبارك كاملاً (11 سورة)</div>
+          <div class="reward-progress">
+            <div class="reward-progress-bar" id="progressJuzTabarak" style="width: 0%;"></div>
+          </div>
+          <div class="reward-progress-text" id="textJuzTabarak">0 / 11 سورة</div>
+        </div>
+
+        <!-- كأس القرآن الكامل -->
+        <div class="reward-card cup" id="cupFullQuran">
+          <i class="fas fa-crown reward-icon" style="color: var(--medal-gold);"></i>
+          <div class="reward-title">تاج حافظ القرآن</div>
+          <div class="reward-description">احفظ القرآن الكريم كاملاً (114 سورة)</div>
+          <div class="reward-progress">
+            <div class="reward-progress-bar" id="progressFullQuran" style="width: 0%;"></div>
+          </div>
+          <div class="reward-progress-text" id="textFullQuran">0 / 114 سورة</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- الإحصائيات -->
+    <div class="stats-section fade-in">
+      <h2 class="text-center mb-4">
+        <i class="fas fa-chart-line" style="color: var(--primary-color);"></i>
+        إحصائيات الحفظ
+      </h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="totalVerses">0</div>
+          <div class="stat-label">آية محفوظة</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number" id="totalPages">0</div>
+          <div class="stat-label">صفحة محفوظة</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number" id="totalSurahs">0</div>
+          <div class="stat-label">سورة محفوظة</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-number" id="streakDays">0</div>
+          <div class="stat-label">يوم متتالي</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- تقويم الحفظ -->
+    <div class="calendar-section fade-in">
+      <h2 class="text-center mb-4">
+        <i class="fas fa-calendar-alt" style="color: var(--primary-color);"></i>
+        تقويم الحفظ - <span id="currentMonth"></span>
+      </h2>
+      
+      <div class="calendar-grid" id="calendarGrid">
+        <!-- سيتم ملء التقويم بواسطة JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <!-- الإشعارات -->
+  <div class="notification" id="notification">
+    <div id="notificationText"></div>
+  </div>
+
+  <script>
+    // بيانات الحفظ
+    let memorizationData = {
+      memorizedVerses: [],
+      memorizedPages: 0,
+      memorizedSurahs: [],
+      currentStreak: 0,
+      lastMemorizationDate: null,
+      rewards: {
+        medal5Pages: false,
+        medal10Pages: false,
+        medal15Pages: false,
+        cupJuzAmma: false,
+        cupJuzTabarak: false,
+        cupFullQuran: false
+      }
+    };
+
+    // الآيات اليومية
+    const dailyVerses = [
+      {
+        text: "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+        surah: "الفاتحة",
+        ayah: 7,
+        translation: "طريق الذين أنعمت عليهم من النبيين والصديقين والشهداء والصالحين، غير طريق المغضوب عليهم ولا طريق الضالين"
+      },
+      {
+        text: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+        surah: "الفاتحة",
+        ayah: 2,
+        translation: "الثناء لله رب جميع المخلوقات"
+      },
+      {
+        text: "الرَّحْمَٰنِ الرَّحِيمِ",
+        surah: "الفاتحة",
+        ayah: 3,
+        translation: "الرحمن الرحيم في الدنيا والآخرة"
+      },
+      {
+        text: "مَالِكِ يَوْمِ الدِّينِ",
+        surah: "الفاتحة",
+        ayah: 4,
+        translation: "مالك يوم الجزاء والحساب"
+      },
+      {
+        text: "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+        surah: "الفاتحة",
+        ayah: 5,
+        translation: "إياك وحدك نعبد وإياك وحدك نستعين على العبادة وأمور الدنيا والآخرة"
+      }
+    ];
+
+    let currentVerse = null;
+    let speechSynthesis = null;
+    let currentUtterance = null;
+    let isPlaying = false;
+
+    // تحميل البيانات المحفوظة
+    function loadMemorizationData() {
+      const saved = localStorage.getItem('memorizationData');
+      if (saved) {
+        memorizationData = { ...memorizationData, ...JSON.parse(saved) };
+      }
+      updateStats();
+      updateRewards();
+    }
+
+    // حفظ البيانات
+    function saveMemorizationData() {
+      localStorage.setItem('memorizationData', JSON.stringify(memorizationData));
+    }
+
+    // تحديث الآية اليومية
+    function updateDailyVerse() {
+      const today = new Date();
+      const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+      const verseIndex = dayOfYear % dailyVerses.length;
+      
+      currentVerse = dailyVerses[verseIndex];
+      
+      document.getElementById('dailyVerseText').textContent = currentVerse.text;
+      document.getElementById('dailyVerseInfo').textContent = `سورة ${currentVerse.surah} - الآية ${currentVerse.ayah}`;
+    }
+
+    // تشغيل صوت الآية باستخدام Web Speech API
+    function playVerseAudio() {
+      const audioBtn = document.getElementById('audioBtn');
+      
+      // التحقق من دعم المتصفح لـ Speech Synthesis
+      if (!('speechSynthesis' in window)) {
+        showNotification('متصفحك لا يدعم تشغيل الصوت', 'error');
+        return;
+      }
+
+      // إيقاف التشغيل الحالي إذا كان يعمل
+      if (isPlaying) {
+        window.speechSynthesis.cancel();
+        isPlaying = false;
+        audioBtn.innerHTML = '<i class="fas fa-play"></i> استمع للآية';
+        audioBtn.classList.remove('playing');
+        return;
+      }
+
+      // إنشاء نص للقراءة
+      const textToSpeak = currentVerse.text;
+      
+      // إنشاء utterance جديد
+      currentUtterance = new SpeechSynthesisUtterance(textToSpeak);
+      
+      // إعدادات الصوت
+      currentUtterance.lang = 'ar-SA'; // العربية السعودية
+      currentUtterance.rate = 0.7; // سرعة بطيئة للوضوح
+      currentUtterance.pitch = 1; // نبرة طبيعية
+      currentUtterance.volume = 1; // صوت عالي
+
+      // البحث عن صوت عربي
+      const voices = window.speechSynthesis.getVoices();
+      const arabicVoice = voices.find(voice => 
+        voice.lang.includes('ar') || 
+        voice.name.includes('Arabic') ||
+        voice.name.includes('عربي')
+      );
+      
+      if (arabicVoice) {
+        currentUtterance.voice = arabicVoice;
+      }
+
+      // معالجات الأحداث
+      currentUtterance.onstart = function() {
+        isPlaying = true;
+        audioBtn.innerHTML = '<div class="loading-spinner"></div> جاري التشغيل...';
+        audioBtn.classList.add('playing');
+        showNotification('بدأ تشغيل الآية...', 'success');
+      };
+
+      currentUtterance.onend = function() {
+        isPlaying = false;
+        audioBtn.innerHTML = '<i class="fas fa-play"></i> استمع للآية';
+        audioBtn.classList.remove('playing');
+        showNotification('انتهى تشغيل الآية', 'info');
+      };
+
+      currentUtterance.onerror = function(event) {
+        isPlaying = false;
+        audioBtn.innerHTML = '<i class="fas fa-play"></i> استمع للآية';
+        audioBtn.classList.remove('playing');
+        console.error('خطأ في تشغيل الصوت:', event.error);
+        
+        // رسائل خطأ مخصصة
+        let errorMessage = 'حدث خطأ في تشغيل الصوت';
+        switch(event.error) {
+          case 'network':
+            errorMessage = 'خطأ في الشبكة، تحقق من الاتصال';
+            break;
+          case 'synthesis-unavailable':
+            errorMessage = 'خدمة تشغيل الصوت غير متاحة';
+            break;
+          case 'synthesis-failed':
+            errorMessage = 'فشل في تشغيل الصوت';
+            break;
+          case 'language-unavailable':
+            errorMessage = 'اللغة العربية غير متاحة للتشغيل';
+            break;
+          case 'voice-unavailable':
+            errorMessage = 'الصوت المطلوب غير متاح';
+            break;
+          case 'text-too-long':
+            errorMessage = 'النص طويل جداً للتشغيل';
+            break;
+          case 'invalid-argument':
+            errorMessage = 'خطأ في معاملات التشغيل';
+            break;
+          case 'not-allowed':
+            errorMessage = 'غير مسموح بتشغيل الصوت في هذا المتصفح';
+            break;
+        }
+        
+        showNotification(errorMessage, 'error');
+      };
+
+      // بدء التشغيل
+      try {
+        window.speechSynthesis.speak(currentUtterance);
+        showNotification('جاري تحضير الصوت...', 'info');
+      } catch (error) {
+        console.error('خطأ في بدء التشغيل:', error);
+        showNotification('حدث خطأ في بدء تشغيل الصوت', 'error');
+        isPlaying = false;
+        audioBtn.innerHTML = '<i class="fas fa-play"></i> استمع للآية';
+        audioBtn.classList.remove('playing');
+      }
+    }
+
+    // عرض معنى الآية
+    function showVerseTranslation() {
+      if (currentVerse) {
+        showNotification(`المعنى: ${currentVerse.translation}`, 'info');
+      }
+    }
+
+    // تكرار الآية
+    function repeatVerse() {
+      if (!('speechSynthesis' in window)) {
+        showNotification('متصفحك لا يدعم تشغيل الصوت', 'error');
+        return;
+      }
+
+      showNotification('سيتم تكرار الآية 3 مرات', 'info');
+      
+      let repeatCount = 0;
+      
+      function playRepeat() {
+        if (repeatCount >= 3) {
+          showNotification('انتهى التكرار', 'success');
+          return;
+        }
+        
+        const utterance = new SpeechSynthesisUtterance(currentVerse.text);
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.7;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        // البحث عن صوت عربي
+        const voices = window.speechSynthesis.getVoices();
+        const arabicVoice = voices.find(voice => 
+          voice.lang.includes('ar') || 
+          voice.name.includes('Arabic') ||
+          voice.name.includes('عربي')
+        );
+        
+        if (arabicVoice) {
+          utterance.voice = arabicVoice;
+        }
+
+        utterance.onend = function() {
+          repeatCount++;
+          setTimeout(() => {
+            playRepeat();
+          }, 1000); // توقف ثانية واحدة بين التكرارات
+        };
+
+        utterance.onerror = function(event) {
+          console.error('خطأ في التكرار:', event.error);
+          showNotification('حدث خطأ أثناء التكرار', 'error');
+        };
+
+        window.speechSynthesis.speak(utterance);
+      }
+      
+      playRepeat();
+    }
+
+    // تسجيل حفظ الآية
+    function markAsMemorized() {
+      const today = new Date();
+      const todayString = today.toDateString();
+      
+      // التحقق من عدم تسجيل الحفظ مسبقاً
+      const alreadyMemorized = memorizationData.memorizedVerses.some(v => 
+        v.date === todayString && v.text === currentVerse.text
+      );
+      
+      if (alreadyMemorized) {
+        showNotification('تم تسجيل حفظ هذه الآية مسبقاً اليوم', 'warning');
+        return;
+      }
+      
+      // إضافة الآية للقائمة
+      memorizationData.memorizedVerses.push({
+        text: currentVerse.text,
+        surah: currentVerse.surah,
+        ayah: currentVerse.ayah,
+        date: todayString,
+        timestamp: today.getTime()
+      });
+      
+      // تحديث الصفحات المحفوظة (كل 20 آية = صفحة واحدة تقريباً)
+      memorizationData.memorizedPages = Math.floor(memorizationData.memorizedVerses.length / 20);
+      
+      // تحديث السلسلة المتتالية
+      updateStreak();
+      
+      // تحديث الإحصائيات
+      updateStats();
+      
+      // فحص المكافآت
+      checkRewards();
+      
+      // حفظ البيانات
+      saveMemorizationData();
+      
+      // تحديث زر الحفظ
+      const memorizeBtn = document.getElementById('memorizeBtn');
+      memorizeBtn.classList.add('success');
+      memorizeBtn.innerHTML = '<i class="fas fa-check"></i> تم الحفظ';
+      memorizeBtn.disabled = true;
+      
+      // تأثير بصري
+      memorizeBtn.classList.add('bounce');
+      
+      showNotification('تم تسجيل حفظ الآية بنجاح! 🎉', 'success');
+      
+      // تحديث التقويم
+      updateCalendar();
+    }
+
+    // تحديث السلسلة المتتالية
+    function updateStreak() {
+      const today = new Date();
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+      
+      const todayString = today.toDateString();
+      const yesterdayString = yesterday.toDateString();
+      
+      const memorizedToday = memorizationData.memorizedVerses.some(v => v.date === todayString);
+      const memorizedYesterday = memorizationData.memorizedVerses.some(v => v.date === yesterdayString);
+      
+      if (memorizedToday) {
+        if (memorizationData.lastMemorizationDate === yesterdayString || !memorizationData.lastMemorizationDate) {
+          memorizationData.currentStreak = (memorizationData.currentStreak || 0) + 1;
+        } else {
+          memorizationData.currentStreak = 1;
+        }
+        memorizationData.lastMemorizationDate = todayString;
+      }
+    }
+
+    // تحديث الإحصائيات
+    function updateStats() {
+      document.getElementById('totalVerses').textContent = memorizationData.memorizedVerses.length;
+      document.getElementById('totalPages').textContent = memorizationData.memorizedPages;
+      document.getElementById('totalSurahs').textContent = memorizationData.memorizedSurahs.length;
+      document.getElementById('streakDays').textContent = memorizationData.currentStreak || 0;
+    }
+
+    // فحص المكافآت
+    function checkRewards() {
+      const pages = memorizationData.memorizedPages;
+      const surahs = memorizationData.memorizedSurahs.length;
+      
+      // مدالية 5 صفحات
+      if (pages >= 5 && !memorizationData.rewards.medal5Pages) {
+        memorizationData.rewards.medal5Pages = true;
+        showRewardNotification('🏅 تهانينا! حصلت على مدالية البداية!');
+        document.getElementById('medal5Pages').classList.add('earned');
+      }
+      
+      // مدالية 10 صفحات
+      if (pages >= 10 && !memorizationData.rewards.medal10Pages) {
+        memorizationData.rewards.medal10Pages = true;
+        showRewardNotification('🥈 رائع! حصلت على مدالية التقدم!');
+        document.getElementById('medal10Pages').classList.add('earned');
+      }
+      
+      // مدالية 15 صفحة
+      if (pages >= 15 && !memorizationData.rewards.medal15Pages) {
+        memorizationData.rewards.medal15Pages = true;
+        showRewardNotification('🥇 ممتاز! حصلت على مدالية الإتقان!');
+        document.getElementById('medal15Pages').classList.add('earned');
+      }
+      
+      // كأس جزء عم (37 سورة من سورة النبأ إلى الناس)
+      const juzAmmaCount = countJuzAmmaSurahs();
+      if (juzAmmaCount >= 37 && !memorizationData.rewards.cupJuzAmma) {
+        memorizationData.rewards.cupJuzAmma = true;
+        showRewardNotification('🏆 مبروك! حصلت على كأس جزء عم!');
+        document.getElementById('cupJuzAmma').classList.add('earned');
+      }
+      
+      updateRewards();
+    }
+
+    // عد سور جزء عم المحفوظة
+    function countJuzAmmaSurahs() {
+      const juzAmmaSurahs = [
+        'النبأ', 'النازعات', 'عبس', 'التكوير', 'الانفطار', 'المطففين', 'الانشقاق',
+        'البروج', 'الطارق', 'الأعلى', 'الغاشية', 'الفجر', 'البلد', 'الشمس',
+        'الليل', 'الضحى', 'الشرح', 'التين', 'العلق', 'القدر', 'البينة',
+        'الزلزلة', 'العاديات', 'القارعة', 'التكاثر', 'العصر', 'الهمزة', 'الفيل',
+        'قريش', 'الماعون', 'الكوثر', 'الكافرون', 'النصر', 'المسد', 'الإخلاص',
+        'الفلق', 'الناس'
+      ];
+      
+      return memorizationData.memorizedSurahs.filter(surah => 
+        juzAmmaSurahs.includes(surah)
+      ).length;
+    }
+
+    // تحديث عرض المكافآت
+    function updateRewards() {
+      const pages = memorizationData.memorizedPages;
+      const juzAmmaCount = countJuzAmmaSurahs();
+      
+      // تحديث تقدم المداليات
+      updateRewardProgress('progress5Pages', 'text5Pages', pages, 5, 'صفحات');
+      updateRewardProgress('progress10Pages', 'text10Pages', pages, 10, 'صفحات');
+      updateRewardProgress('progress15Pages', 'text15Pages', pages, 15, 'صفحة');
+      updateRewardProgress('progressJuzAmma', 'textJuzAmma', juzAmmaCount, 37, 'سورة');
+      
+      // تطبيق الحالة المكتسبة
+      Object.keys(memorizationData.rewards).forEach(reward => {
+        if (memorizationData.rewards[reward]) {
+          document.getElementById(reward.replace('medal', 'medal').replace('cup', 'cup')).classList.add('earned');
+        }
+      });
+    }
+
+    // تحديث شريط تقدم المكافأة
+    function updateRewardProgress(progressId, textId, current, target, unit) {
+      const percentage = Math.min((current / target) * 100, 100);
+      document.getElementById(progressId).style.width = percentage + '%';
+      document.getElementById(textId).textContent = `${current} / ${target} ${unit}`;
+    }
+
+    // إشعار المكافأة
+    function showRewardNotification(message) {
+      // إنشاء إشعار خاص بالمكافآت
+      const rewardNotification = document.createElement('div');
+      rewardNotification.className = 'notification reward-notification show';
+      rewardNotification.style.background = 'linear-gradient(135deg, var(--gold), #ffd700)';
+      rewardNotification.style.color = 'white';
+      rewardNotification.style.fontSize = '1.2rem';
+      rewardNotification.style.fontWeight = 'bold';
+      rewardNotification.innerHTML = message;
+      
+      document.body.appendChild(rewardNotification);
+      
+      setTimeout(() => {
+        rewardNotification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(rewardNotification);
+        }, 300);
+      }, 4000);
+    }
+
+    // تحديث التقويم
+    function updateCalendar() {
+      const today = new Date();
+      const currentMonth = today.getMonth();
+      const currentYear = today.getFullYear();
+      
+      document.getElementById('currentMonth').textContent = 
+        today.toLocaleDateString('ar-SA', { month: 'long', year: 'numeric' });
+      
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
+      const daysInMonth = lastDay.getDate();
+      const startingDayOfWeek = firstDay.getDay();
+      
+      const calendarGrid = document.getElementById('calendarGrid');
+      calendarGrid.innerHTML = '';
+      
+      // أيام الأسبوع
+      const dayNames = ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
+      dayNames.forEach(day => {
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'calendar-day';
+        dayHeader.style.fontWeight = 'bold';
+        dayHeader.style.background = 'var(--primary-color)';
+        dayHeader.style.color = 'white';
+        dayHeader.textContent = day;
+        calendarGrid.appendChild(dayHeader);
+      });
+      
+      // أيام فارغة في بداية الشهر
+      for (let i = 0; i < startingDayOfWeek; i++) {
+        const emptyDay = document.createElement('div');
+        emptyDay.className = 'calendar-day';
+        emptyDay.style.visibility = 'hidden';
+        calendarGrid.appendChild(emptyDay);
+      }
+      
+      // أيام الشهر
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.textContent = day;
+        
+        const dayDate = new Date(currentYear, currentMonth, day);
+        const dayString = dayDate.toDateString();
+        
+        // التحقق من وجود حفظ في هذا اليوم
+        const hasMemorization = memorizationData.memorizedVerses.some(v => v.date === dayString);
+        if (hasMemorization) {
+          dayElement.classList.add('memorized');
+        }
+        
+        // تمييز اليوم الحالي
+        if (day === today.getDate()) {
+          dayElement.classList.add('today');
+        }
+        
+        calendarGrid.appendChild(dayElement);
+      }
+    }
+
+    // عرض الإشعارات
+    function showNotification(message, type = 'info') {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notificationText');
+      
+      notificationText.textContent = message;
+      notification.className = `notification ${type} show`;
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // تحميل الأصوات المتاحة
+    function loadVoices() {
+      return new Promise((resolve) => {
+        let voices = window.speechSynthesis.getVoices();
+        
+        if (voices.length > 0) {
+          resolve(voices);
+        } else {
+          window.speechSynthesis.onvoiceschanged = () => {
+            voices = window.speechSynthesis.getVoices();
+            resolve(voices);
+          };
+        }
+      });
+    }
+
+    // تهيئة الصفحة
+    document.addEventListener('DOMContentLoaded', async function() {
+      loadMemorizationData();
+      updateDailyVerse();
+      updateCalendar();
+      
+      // تحميل الأصوات المتاحة
+      if ('speechSynthesis' in window) {
+        try {
+          const voices = await loadVoices();
+          console.log('الأصوات المتاحة:', voices.map(v => `${v.name} (${v.lang})`));
+          
+          // البحث عن أصوات عربية
+          const arabicVoices = voices.filter(voice => 
+            voice.lang.includes('ar') || 
+            voice.name.includes('Arabic') ||
+            voice.name.includes('عربي')
+          );
+          
+          if (arabicVoices.length > 0) {
+            console.log('أصوات عربية متاحة:', arabicVoices.map(v => `${v.name} (${v.lang})`));
+            showNotification('تم تحميل الأصوات العربية بنجاح', 'success');
+          } else {
+            console.log('لا توجد أصوات عربية متاحة، سيتم استخدام الصوت الافتراضي');
+            showNotification('سيتم استخدام الصوت الافتراضي للتشغيل', 'warning');
+          }
+        } catch (error) {
+          console.error('خطأ في تحميل الأصوات:', error);
+          showNotification('حدث خطأ في تحميل الأصوات', 'error');
+        }
+      } else {
+        showNotification('متصفحك لا يدعم تشغيل الصوت', 'error');
+      }
+      
+      // تحديث الآية كل يوم
+      setInterval(() => {
+        const now = new Date();
+        if (now.getHours() === 0 && now.getMinutes() === 0) {
+          updateDailyVerse();
+          updateCalendar();
+        }
+      }, 60000); // فحص كل دقيقة
+    });
+
+    // تنظيف الموارد عند إغلاق الصفحة
+    window.addEventListener('beforeunload', function() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    });
+  </script>
+</body>
+</html>
+
